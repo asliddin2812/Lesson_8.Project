@@ -10,6 +10,20 @@ from .models import OmonimTafsiloti, Omonimlar
 from .serializers import OmonimlarTafsilotiSerializer,OmonimlarSerializer
 
 
+@swagger_auto_schema(method='get', response={200: OmonimlarSerializer})
+@api_view(['GET'])
+def omonimlar_list(request):
+    queryset = Omonimlar.objects.all()
+    serializer = OmonimlarSerializer(queryset, many=True)
+    return Response(serializer.data)
+
+@swagger_auto_schema(method='get', response={200: OmonimlarTafsilotiSerializer})
+@api_view(['GET'])
+def omonim_tafsiloti_list(request):
+    queryset = OmonimTafsiloti.objects.all()
+    serializer = OmonimlarTafsilotiSerializer(queryset, many=True)
+    return Response(serializer.data)
+
 @swagger_auto_schema(
     method='get',
     manual_parameters=[
